@@ -6,25 +6,27 @@
 /*   By: fadermou <fadermou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 22:46:19 by fadermou          #+#    #+#             */
-/*   Updated: 2023/06/08 18:05:13 by fadermou         ###   ########.fr       */
+/*   Updated: 2023/06/08 18:32:03 by fadermou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// void *routine(void *p)
-// {
-// 	philo	*t;
-
-// 	t = (philo *)p;
+void *routine(void *p, void *p2)
+{
+	philo	*t;
+	philo	*t2;
+	t = (philo *)p;
+	t2 = (philo *)p2
 // 	pthread_mutex_lock(&t->mutex);
 // 	// printf("thread beggins\n");
 // 	printf("philo number %d has teaken the a fork\n",t->i);
 // 	sleep(1);
 // 	printf("thread ends\n");
 // 	pthread_mutex_lock(&t->mutex);
-// 	return (NULL);
-// }
+	return (NULL);
+}
+
 // void	threads_creation(philo *p)
 // {
 // 	// (void)p;
@@ -63,7 +65,7 @@
 // 	pthread_mutex_destroy(&p->mutex);
 // }
 
-void mutex_creation(philo *p)
+void forks_creation(philo *p)
 {
 	int			i;
 
@@ -88,9 +90,26 @@ void mutex_creation(philo *p)
 	}
 }
 
-void	forks_creation(philo *p)
+void thread_creation(philo *p, int i)
 {
-	mutex_creation(p);
+	if (pthread_create(&t[p->i], NULL, &routine, (&p, &p)))
+		put_error("ERROR 1\n");
+	if (pthread_join(t[p->i], NULL))
+		put_error("ERROR 3\n");
+}
+
+void	mutex_creation(philo *p)
+{
+	int	i;
+
+	forks_creation(p);
+	i = 0;
+	while (i < p->p_nb)
+	{
+		thread_creation(p, i);
+		i++;
+	}
+	
 }
 
 int main(int ac, char **av)
@@ -100,7 +119,7 @@ int main(int ac, char **av)
 	if (ac == 5 || ac == 6)
 	{
 		parsing(av, &p);
-		forks_creation(&p);
+		mutex_creation(&p);
 	}
 	else
 		write(2, "not enough arguments\n", 21);
