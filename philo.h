@@ -11,12 +11,17 @@
 
 typedef struct philo
 {
+
+	int	i;
 	int	p_nb;
+	// pthread_mutex_t	forks[p_nb];
 	int	tm2sl;
 	int	tm28;
 	int	nb28;
 	int	tm2di;
-	pthread_mutex_t mutex;
+	pthread_mutex_t *fork;
+	pthread_mutex_t *l_fork;
+	pthread_mutex_t *r_fork;
 	// int	mails;
 }		philo;
 

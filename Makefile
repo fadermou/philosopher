@@ -28,7 +28,7 @@ all : $(NAME)
 # bonus : $(NAME_B)
 
 $(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ)   -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ)  -o $(NAME)
 
 # $(NAME_B) : $(OBJ_B)
 # 	$(CC) $(CFLAGS) $(OBJ_B)  -o $(NAME_B)
