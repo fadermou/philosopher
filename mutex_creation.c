@@ -6,7 +6,7 @@
 /*   By: fadermou <fadermou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 19:30:08 by fadermou          #+#    #+#             */
-/*   Updated: 2023/06/09 22:07:34 by fadermou         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:17:40 by fadermou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	check_death(philo p)
 	{
 		if (get_time() - p.last_meal[j] > (unsigned long)p.tm2di)
 		{
-			printf("philo num [%d] is dead\n", p.i);
+			printf("philo num [%d] is dead\n", p.id);
 			// exit(1);
 			return (1);
 		}
@@ -73,18 +73,6 @@ int	check_death(philo p)
 
 int	mutex_creation(philo *p)
 {
-	// int f;
-
-	// f = 0;
-	// if (forks_creation(p))
-	// 	return (1);
-	// p->i = 0;
-	// while (p->i < p->p_nb)
-	// {
-	// 	if (threads_creation(p))// in main
-	// 		return (1);
-	// 	p->i++;
-	// }
 	while (1)
 	{
 		if (check_death(*p))

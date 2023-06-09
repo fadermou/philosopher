@@ -12,7 +12,7 @@
 typedef struct philo
 {
 
-	int	i;
+	int	id;
 	int	p_nb;
 	// pthread_mutex_t	forks[p_nb];
 	int	tm2sl;

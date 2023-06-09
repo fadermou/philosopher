@@ -6,7 +6,7 @@
 /*   By: fadermou <fadermou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 22:46:19 by fadermou          #+#    #+#             */
-/*   Updated: 2023/06/09 22:12:48 by fadermou         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:14:35 by fadermou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ int	ft_philo(philo *p)
 	{
 		if (forks_creation(p))
 			return (1);
-		p->i = 0;
-		while (p->i < p->p_nb)
+		p->id = 0;
+		while (p->id < p->p_nb)
 		{
 			if (threads_creation(p))
 				return (1);
-			p->i++;
+			p->id++;
 		}
 	}
 	return (0);
