@@ -6,8 +6,8 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
-SRCS =  philo.c utils.c parsing.c\
-		libft/ft_strlen.c libft/ft_atoi.c 
+SRCS =  philo.c utils.c parsing.c routine.c ft_time.c\
+		libft/ft_strlen.c libft/ft_atoi.c mutex_creation.c
 		
 		
 		
