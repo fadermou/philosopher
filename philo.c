@@ -6,7 +6,7 @@
 /*   By: fadermou <fadermou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 22:46:19 by fadermou          #+#    #+#             */
-/*   Updated: 2023/06/09 22:14:35 by fadermou         ###   ########.fr       */
+/*   Updated: 2023/06/10 11:47:24 by fadermou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	ft_philo(philo *p)
 		{
 			if (threads_creation(p))
 				return (1);
+			if (mutex_creation(p))
+				return (1);
 			p->id++;
 		}
 	}
@@ -55,8 +57,6 @@ int main(int ac, char **av)
 			return (1);
 		if (ft_philo(&p))
 			return 1;
-		if (mutex_creation(&p))
-			return (1);
 	}
 	else
 		write(2, "not enough arguments\n", 21);

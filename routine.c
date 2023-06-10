@@ -6,7 +6,7 @@
 /*   By: fadermou <fadermou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 21:17:05 by fadermou          #+#    #+#             */
-/*   Updated: 2023/06/09 22:17:32 by fadermou         ###   ########.fr       */
+/*   Updated: 2023/06/10 12:04:50 by fadermou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,19 @@ void taking_forks(philo *p)
 {
 	while (1)
 	{
+		if (!((p->id + 1) % 2))
+			ft_sleep(500);
 		if (pthread_mutex_lock(&p->l_fork[p->id + 1]))
 			write(2, "creating mutex's failed\n", 24);
 		else
 			printf("philo numb [%d] has taken a left fork\n", p->id);
+		if (!((p->id + 1) % 2))
+			ft_sleep(500);
 		if (pthread_mutex_lock(&p->r_fork[p->id + 1]))
 			write(2, "creating mutex's failed\n", 24);
 		else
 			printf("philo numb [%d] has raken a right fork\n", p->id);
+		
 		printf("philo num [%d] is eating\n", p->id);
 		p->last_meal[p->id + 1] = get_time();
 		ft_sleep(p->tm28);
