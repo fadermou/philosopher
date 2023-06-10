@@ -6,8 +6,8 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
-SRCS =  philo.c utils.c parsing.c routine.c ft_time.c\
-		libft/ft_strlen.c libft/ft_atoi.c mutex_creation.c
+SRCS =  philosopher.c parsing.c ft_time.c ft_atoi.c\
+		# mutex_creation.c
 		
 		
 		
@@ -35,6 +35,7 @@ $(NAME) : $(OBJ)
 
 push :
 	git add . && git commit -m "philosopher" && git push
+
 clean :
 	rm -f $(OBJ)
 
