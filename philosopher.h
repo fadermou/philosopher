@@ -9,9 +9,15 @@
 # include <unistd.h>
 #include <pthread.h>
 
+#define L_FORK 	1
+#define R_FORK 	2
+#define EAT 	3
+#define SLEEP	4
+
 typedef struct philo
 {
 	int id;
+	int err;
 	unsigned long last_meal;
 	pthread_mutex_t *r_fork;
 	pthread_mutex_t *l_fork;

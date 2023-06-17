@@ -6,7 +6,7 @@
 /*   By: fadermou <fadermou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:30:49 by fadermou          #+#    #+#             */
-/*   Updated: 2023/06/10 22:31:51 by fadermou         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:20:50 by fadermou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ int	fill_my_struct(char **av, t_data *data)
 		i++;
 	}
 	i = 0;
-	while (i < data->p_nb)
+	while (i < data->p_nb)// each_philo initialisation
 	{
 		data->philo[i].id = i + 1;
+		data->philo[i].err = 0;
 		data->philo[i].l_fork = &data->forks[i];
 		data->philo[i].r_fork = &data->forks[(i + 1) % data->p_nb];
 		data->philo[i].data = data;

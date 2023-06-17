@@ -6,65 +6,54 @@
 /*   By: fadermou <fadermou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:29:30 by fadermou          #+#    #+#             */
-/*   Updated: 2023/06/10 22:24:54 by fadermou         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:18:12 by fadermou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-// void *routine(void *philo)
-// {
-// 	t_philo *ph;
-// 	ph = (t_philo *)philo;
-// 	while (1)
-// 	{
-// 		if (pthread_mutex_lock(ph->l_fork))
-// 			printf("locking mutex's failed\n");
-// 		else
-// 			printf("philo numb [%d] has taken a left fork\n", ph->id);
-// 		if (pthread_mutex_lock(ph->r_fork))
-// 			printf("locking mutex's failed\n");
-// 		else
-// 			printf("philo numb [%d] has taken a left fork\n", ph->id);
-// 		ph->last_meal = get_time();
-// 		printf("%lu [%d] is eating\n", get_time(), ph->id);
-// 		ft_sleep(ph->data->tm28);
-// 		printf("-->here\n");
-// 		if (pthread_mutex_unlock(ph->l_fork))
-// 			printf("unlocking mutex's failed\n");
-// 		if (pthread_mutex_unlock(ph->r_fork))
-// 			printf("unlocking mutex's failed\n");
-// 		else
-// 		{
-// 			printf("%lu [%d] is sleeping\n", get_time(), ph->id);
-// 			ft_sleep(ph->data->tm2sl);
-// 		}
-// 	}
-// 	return (NULL);
-// }
+void	print_it(int i, int id, t_data *data)
+{
+	unsigned long time;
+
+	time = get_time() - data->start_time;
+	if (i == L_FORK)
+		printf("%lu [%d] has taken a left fork\n", time, id);
+	if (i == R_FORK)
+		printf("%lu [%d] has taken a right fork\n", time, id);
+	if (i == EAT)
+		printf("%lu [%d] is eating\n", time, id);
+	if (i == SLEEP)
+		printf("%lu [%d] is sleeping\n", time, id);
+		
+}
 
 void *routine(void *philo)
 {
 	t_philo *ph;
 
 	ph = (t_philo *)philo;
-	if (ph->id %  2)
-		usleep(500);
+	// if (ph->id %  2)
+	// 	usleep(500);
 	while (1)
 	{
-		pthread_mutex_lock(ph->l_fork);
-		printf("philo numb [%d] has taken a left fork\n", ph->id);
-		pthread_mutex_lock(ph->r_fork);
-		printf("philo numb [%d] has taken a right fork\n", ph->id);
+		if (pthread_mutex_lock(ph->l_fork))
+			break;
+		print_it(L_FORK, ph->id, ph->data);
+		if (pthread_mutex_lock(ph->r_fork))
+			break;
+		print_it(R_FORK, ph->id, ph->data);
 		ph->last_meal = get_time() - ph->data->start_time;
-		printf("---->%lu\n", ph->last_meal);
-		printf("philo numb [%d] is eating\n", ph->id);
+		print_it(EAT, ph->id, ph->data);
 		ft_sleep(ph->data->tm28);
-		pthread_mutex_unlock(ph->l_fork);
-		pthread_mutex_unlock(ph->r_fork);
-		printf("philo num [%d] is sleeping\n", ph->id);
+		if (pthread_mutex_unlock(ph->l_fork))
+			break;
+		if (pthread_mutex_unlock(ph->r_fork))
+			break;
+		print_it(SLEEP, ph->id, ph->data);
 		ft_sleep(ph->data->tm2sl);
 	}
+	ph->err = 1;
 	return (NULL);
 }
 
