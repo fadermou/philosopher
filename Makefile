@@ -1,4 +1,4 @@
-NAME = philosopher
+NAME = philo
 
 # NAME_B = checker
 

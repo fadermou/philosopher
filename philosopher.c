@@ -6,7 +6,7 @@
 /*   By: fadermou <fadermou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:29:30 by fadermou          #+#    #+#             */
-/*   Updated: 2023/06/22 22:19:21 by fadermou         ###   ########.fr       */
+/*   Updated: 2023/06/22 22:29:26 by fadermou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,7 @@
 
 void	print_it(int f, int id, t_data *data, char *str)
 {
-	// unsigned long	time;
-	// (void)f;
-
-	// lock_print
 	pthread_mutex_lock(&data->print);
-	// time = get_time() - data->start_time;
 	printf("%lu [%d] %s\n", get_time() - data->start_time, id, str);
 	if (!f)
 		pthread_mutex_unlock(&data->print);
@@ -52,6 +47,10 @@ void	*routine(void *philo)
 	return (NULL);
 }
 
+// void thread_create(t_data *data)
+// {
+	
+// }
 
 int	main(int ac, char **av)
 {
@@ -67,28 +66,18 @@ int	main(int ac, char **av)
 		while (i < data->p_nb)
 		{
 			pthread_create(&data->philo[i].t, NULL, &routine, &data->philo[i]);
-			pthread_detach(data->philo[i].t);
-			i++;
-		}
-		i = 0;
-		while (i < data->p_nb)
-		{
-			pthread_join(data->philo[i].t, NULL);
 			i++;
 		}
 		while (1)
 		{
-			i = 0;
+			i = -1;
 			while (i < data->p_nb)
 			{
-				if (check_death(&data->philo[i]))
+				if (check_death(&data->philo[++i]))
 					return (1);
-				i++;
 			}
 		}
 	}
 	else
 		write(2, "not enough arguments\n", 21);
 }
-
-// 5 philos 
