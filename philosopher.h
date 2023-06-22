@@ -18,10 +18,10 @@
 typedef struct philo
 {
 	int				id;
-	int				err;
 	unsigned long	last_meal;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
+	pthread_t	t;
 	struct data		*data;
 }					t_philo;
 
@@ -29,6 +29,7 @@ typedef struct data
 {
 	int				p_nb;
 	int				tm2sl;
+	int				d;
 	int				tm28;
 	int				tm;
 	int				nb28;
@@ -36,11 +37,11 @@ typedef struct data
 	int				flag;
 	unsigned long	start_time;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*death;
-	pthread_mutex_t	*p_tm;
-	pthread_mutex_t	*p_tm2;
-	pthread_mutex_t	*hihi;
-	pthread_mutex_t	*print;
+	pthread_mutex_t	death;
+	pthread_mutex_t	p_tm;
+	pthread_mutex_t	p_tm2;
+	pthread_mutex_t	hihi;
+	pthread_mutex_t	print;
 	t_philo			*philo;
 }					t_data;
 
