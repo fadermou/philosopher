@@ -23,3 +23,6 @@ int main()
 	ft_sleep(10);
 	printf("test2 finished\n");
 }
+
+
+//DATA RACE

@@ -1,0 +1,5 @@
+./philosopher 5 610 200 200 [clean]
+
+./philosopher 5 800 200 200 [clean]
+
+ 3 800 200 200 m not sure

@@ -4,7 +4,8 @@ NAME = philosopher
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=thread
+# thread
 
 SRCS =  philosopher.c parsing.c ft_time.c ft_atoi.c\
 		# mutex_creation.c
