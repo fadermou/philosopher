@@ -6,7 +6,7 @@
 /*   By: fadermou <fadermou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:30:49 by fadermou          #+#    #+#             */
-/*   Updated: 2023/06/22 22:14:46 by fadermou         ###   ########.fr       */
+/*   Updated: 2023/06/22 22:19:37 by fadermou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,10 @@ int	fill_my_struct(char **av, t_data *data)
 	data->tm28 = ft_atoi(av[3]);
 	data->tm2sl = ft_atoi(av[4]);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->p_nb);
-	// data->death = malloc(sizeof(pthread_mutex_t));
-	// data->p_tm = malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(&data->p_tm , NULL);
 	pthread_mutex_init(&data->print , NULL);
 	pthread_mutex_init(&data->p_tm2 , NULL);
 	pthread_mutex_init(&data->death , NULL);
-	// data->p_tm2 = malloc(sizeof(pthread_mutex_t));
-	// data->hihi = malloc(sizeof(pthread_mutex_t));
-	// data->print = malloc(sizeof(pthread_mutex_t));
 	data->philo = malloc(sizeof(t_philo) * data->p_nb);
 	data->flag = 0;
 	i = 0;
