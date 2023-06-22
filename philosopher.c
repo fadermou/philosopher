@@ -6,7 +6,7 @@
 /*   By: fadermou <fadermou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:29:30 by fadermou          #+#    #+#             */
-/*   Updated: 2023/06/22 22:29:26 by fadermou         ###   ########.fr       */
+/*   Updated: 2023/06/23 00:01:50 by fadermou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*routine(void *philo)
 
 	ph = (t_philo *)philo;
 	if (ph->id % 2)
-		usleep(500);
+		usleep(100);
 	while (1)
 	{
 		pthread_mutex_lock(ph->l_fork);
@@ -38,6 +38,11 @@ void	*routine(void *philo)
 		pthread_mutex_unlock(&ph->data->p_tm);
 		print_it(0, ph->id, ph->data, "is eating");
 		ft_sleep(ph->data->tm28);
+		pthread_mutex_lock(&ph->data->p_meals);
+		ph->meals++;
+		if (ph->meals == ph->data->meals)
+			ph->data->check++;
+		pthread_mutex_unlock(&ph->data->p_meals);
 		pthread_mutex_unlock(ph->l_fork);
 		pthread_mutex_unlock(ph->r_fork);
 		print_it(0, ph->id, ph->data, "is sleeping");
@@ -47,11 +52,6 @@ void	*routine(void *philo)
 	return (NULL);
 }
 
-// void thread_create(t_data *data)
-// {
-	
-// }
-
 int	main(int ac, char **av)
 {
 	t_data		*data;
@@ -60,7 +60,7 @@ int	main(int ac, char **av)
 	data = malloc(sizeof(t_data));
 	if (ac == 5 || ac == 6)
 	{
-		if (parsing(av, data))
+		if (parsing(av, data, ac))
 			return (1);
 		i = 0;
 		while (i < data->p_nb)
@@ -70,11 +70,12 @@ int	main(int ac, char **av)
 		}
 		while (1)
 		{
-			i = -1;
+			i = 0;
 			while (i < data->p_nb)
 			{
-				if (check_death(&data->philo[++i]))
+				if (check_death(&data->philo[i]))
 					return (1);
+				i++;
 			}
 		}
 	}

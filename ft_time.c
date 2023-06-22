@@ -6,7 +6,7 @@
 /*   By: fadermou <fadermou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:09:31 by fadermou          #+#    #+#             */
-/*   Updated: 2023/06/22 22:21:50 by fadermou         ###   ########.fr       */
+/*   Updated: 2023/06/23 00:05:12 by fadermou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@ int	check_death(t_philo *philo)
 	pthread_mutex_lock(&philo->data->p_tm);
 	time = (get_time() - philo->data->start_time) - philo->last_meal;
 	pthread_mutex_unlock(&philo->data->p_tm);
+	pthread_mutex_lock(&philo->data->p_meals);
+	if (philo->data->check >= philo->data->p_nb)
+	{
+		pthread_mutex_unlock(&philo->data->p_meals);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->data->p_meals);
 	if (time > (unsigned long)philo->data->tm2di)
 	{
 		philo->data->flag = 1;

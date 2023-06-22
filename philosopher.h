@@ -19,9 +19,10 @@ typedef struct philo
 {
 	int				id;
 	unsigned long	last_meal;
+	int				meals;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
-	pthread_t	t;
+	pthread_t			t;
 	struct data		*data;
 }					t_philo;
 
@@ -33,20 +34,22 @@ typedef struct data
 	int				tm28;
 	int				tm;
 	int				nb28;
+	int				meals;
 	int				tm2di;
 	int				flag;
+	int				check;
 	unsigned long	start_time;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	death;
 	pthread_mutex_t	p_tm;
+	pthread_mutex_t	p_meals;
 	pthread_mutex_t	p_tm2;
-	pthread_mutex_t	hihi;
 	pthread_mutex_t	print;
 	t_philo			*philo;
 }					t_data;
 
 void	print_it(int f, int id, t_data *data, char *str);
-int					parsing(char **av, t_data *data);
+int					parsing(char **av, t_data *data, int ac);
 int					ft_atoi(char *str);
 void				ft_sleep(unsigned long time);
 unsigned long		get_time(void);
