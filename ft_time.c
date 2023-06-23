@@ -6,7 +6,7 @@
 /*   By: fadermou <fadermou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 14:09:31 by fadermou          #+#    #+#             */
-/*   Updated: 2023/06/23 16:40:06 by fadermou         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:47:45 by fadermou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	check_death(t_philo *philo)
 	if (philo->data->check >= philo->data->p_nb)
 		return (1);
 	pthread_mutex_unlock(&philo->data->p_meals);
-	if (time > (unsigned long)philo->data->tm2di)
+	if (time >= (unsigned long)philo->data->tm2di)
 	{
 		printf("________________%lu________________\n", time);
 		philo->data->flag = 1;
