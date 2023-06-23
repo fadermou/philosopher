@@ -6,18 +6,19 @@
 /*   By: fadermou <fadermou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:29:30 by fadermou          #+#    #+#             */
-/*   Updated: 2023/06/23 00:01:50 by fadermou         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:29:49 by fadermou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-void	print_it(int f, int id, t_data *data, char *str)
+void	meals_numb(t_philo *ph)
 {
-	pthread_mutex_lock(&data->print);
-	printf("%lu [%d] %s\n", get_time() - data->start_time, id, str);
-	if (!f)
-		pthread_mutex_unlock(&data->print);
+	pthread_mutex_lock(&ph->data->p_meals);
+	ph->meals++;
+	if (ph->meals == ph->data->meals)
+		ph->data->check++;
+	pthread_mutex_unlock(&ph->data->p_meals);
 }
 
 void	*routine(void *philo)
@@ -26,7 +27,7 @@ void	*routine(void *philo)
 
 	ph = (t_philo *)philo;
 	if (ph->id % 2)
-		usleep(100);
+		usleep(10);
 	while (1)
 	{
 		pthread_mutex_lock(ph->l_fork);
@@ -38,11 +39,7 @@ void	*routine(void *philo)
 		pthread_mutex_unlock(&ph->data->p_tm);
 		print_it(0, ph->id, ph->data, "is eating");
 		ft_sleep(ph->data->tm28);
-		pthread_mutex_lock(&ph->data->p_meals);
-		ph->meals++;
-		if (ph->meals == ph->data->meals)
-			ph->data->check++;
-		pthread_mutex_unlock(&ph->data->p_meals);
+		meals_numb(ph);
 		pthread_mutex_unlock(ph->l_fork);
 		pthread_mutex_unlock(ph->r_fork);
 		print_it(0, ph->id, ph->data, "is sleeping");
@@ -50,6 +47,20 @@ void	*routine(void *philo)
 		print_it(0, ph->id, ph->data, "is thinking");
 	}
 	return (NULL);
+}
+
+int	pthread_creation(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->p_nb)
+	{
+		if (pthread_create(&data->philo[i].t, NULL, &routine, &data->philo[i]))
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -62,12 +73,8 @@ int	main(int ac, char **av)
 	{
 		if (parsing(av, data, ac))
 			return (1);
-		i = 0;
-		while (i < data->p_nb)
-		{
-			pthread_create(&data->philo[i].t, NULL, &routine, &data->philo[i]);
-			i++;
-		}
+		if (pthread_creation(data))
+			return (1);
 		while (1)
 		{
 			i = 0;

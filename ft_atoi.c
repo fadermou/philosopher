@@ -6,15 +6,15 @@
 /*   By: fadermou <fadermou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:50:41 by fadermou          #+#    #+#             */
-/*   Updated: 2023/06/10 14:19:11 by fadermou         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:17:00 by fadermou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-size_t ft_strlen(char *s)
+size_t	ft_strlen(char *s)
 {
-	char *p;
+	char	*p;
 
 	p = s;
 	while (*p)
@@ -23,11 +23,7 @@ size_t ft_strlen(char *s)
 	}
 	return (p - s);
 }
-void put_error(char *str)
-{
-	write(2, str, ft_strlen(str));
-	exit(1);
-}
+
 int	ft_atoi(char *str)
 {
 	int				i;
@@ -48,9 +44,9 @@ int	ft_atoi(char *str)
 		result = (result * 10) + str[i] - '0';
 		i++;
 	}
-	if (result > 2147483647 && signe == 1)
-		put_error("Error\n");
-	if (result > 2147483648 && signe == -1)
-		put_error("Error\n");
+	if (result >= 9223372036854775807 && signe == 1)
+		return (-1);
+	if (result > 9223372036854775807 && signe == -1)
+		return (0);
 	return (signe * result);
 }
