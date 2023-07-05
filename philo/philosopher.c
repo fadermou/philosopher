@@ -6,7 +6,7 @@
 /*   By: fadermou <fadermou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:29:30 by fadermou          #+#    #+#             */
-/*   Updated: 2023/06/23 17:52:03 by fadermou         ###   ########.fr       */
+/*   Updated: 2023/06/26 00:02:08 by fadermou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	*routine(void *philo)
 	t_philo	*ph;
 
 	ph = (t_philo *)philo;
-	if (ph->id % 2)
-		usleep(10);
 	while (1)
 	{
 		pthread_mutex_lock(ph->l_fork);
@@ -58,6 +56,7 @@ int	pthread_creation(t_data *data)
 	{
 		if (pthread_create(&data->philo[i].t, NULL, &routine, &data->philo[i]))
 			return (1);
+		usleep(50);
 		i++;
 	}
 	return (0);

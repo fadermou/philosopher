@@ -6,7 +6,7 @@
 /*   By: fadermou <fadermou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 15:33:37 by fadermou          #+#    #+#             */
-/*   Updated: 2023/06/23 16:18:12 by fadermou         ###   ########.fr       */
+/*   Updated: 2023/06/23 23:39:37 by fadermou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct data
 void				print_it(int f, int id, t_data *data, char *str);
 int					parsing(char **av, t_data *data, int ac);
 int					ft_atoi(char *str);
+int					args_are_digits(char **av);
 void				ft_sleep(unsigned long time);
 unsigned long		get_time(void);
 int					check_death(t_philo *philo);

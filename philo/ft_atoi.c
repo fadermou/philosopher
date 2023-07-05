@@ -6,7 +6,7 @@
 /*   By: fadermou <fadermou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:50:41 by fadermou          #+#    #+#             */
-/*   Updated: 2023/06/23 16:17:00 by fadermou         ###   ########.fr       */
+/*   Updated: 2023/06/23 23:39:47 by fadermou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,27 @@ int	ft_atoi(char *str)
 	if (result > 9223372036854775807 && signe == -1)
 		return (0);
 	return (signe * result);
+}
+
+int	args_are_digits(char **av)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (av[i])
+	{
+		j = 0;
+		while (av[i][j])
+		{
+			if (av[i][j] < 48 || av[i][j] > 57)
+			{
+				write(2, "there is an invalid character\n", 30);
+				return (1);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }
